@@ -60,6 +60,14 @@ foreach ($requests as $device => $request) {
         preg_match($fw_regex_version, $url, $matches);
         $fw['version'] = $matches[0];
 
+        $parent = $element->parentNode->parentNode->parentNode;
+        $tr = $parent->getElementsByTagName('tr')[1];
+        $span = $parent->getElementsByTagName('span')[5];
+
+        foreach ($span->childNodes as $child) {
+            $fw['release_date'] = $child->ownerDocument->saveHtml($child);
+        }
+
         array_push($data[$device], $fw);
     }
 }
