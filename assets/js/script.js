@@ -6,7 +6,7 @@ $(".scrollTo").click(function() {
 
 
 var deviceTemplate = '<div class="panel panel-default" device="{ $DEVICE }"><div class="panel-heading">{ $DEVICE }</div><table class="table"><thead><tr><th>#</th><th>Version</th><th>Region</th><th>Release date</th><th>Changelog</th><th>Download link</th></tr></thead><tbody></tbody></table></div>';
-var firmwareTemplate = '<tr><th scope="row">{ $INDEX }</th><td>{ $VERSION }</td><td>{ $REGION }</td><td>{ $RELEASE_DATE }</td><td><a href="javascript:;" class="showChangelog">Show changelog</a></td><td><a href="{ $URL }">{ $URL }</a></td>';
+var firmwareTemplate = '<tr><th scope="row">{ $INDEX }</th><td>{ $VERSION }</td><td>{ $REGION }</td><td>{ $RELEASE_DATE }</td><td><a href="javascript:;" class="showChangelog">Show changelog</a></td><td><a href="{ $URL }">Download</a></td>';
 var changelogs = [];
 
 $.getJSON('./api.php', function(data) {
