@@ -78,7 +78,7 @@ foreach ($requests as $device => $request) {
         $span = $parent->getElementsByTagName('span')[1];
 
         foreach ($span->childNodes as $child) {
-            $fw['description'] .= $child->ownerDocument->saveHtml($child);
+            $fw['description'] .= utf8_decode($child->ownerDocument->saveHtml($child));
         }
 
 
