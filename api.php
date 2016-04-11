@@ -47,6 +47,7 @@ foreach ($requests as $device => $request) {
 
     foreach ($xpath->query($fw_xpath) as $element) {
         $url = $element->getAttribute("href");
+        $parent = $element->parentNode->parentNode->parentNode;
         $fw = array();
 
         if (!$url)
@@ -60,13 +61,26 @@ foreach ($requests as $device => $request) {
         preg_match($fw_regex_version, $url, $matches);
         $fw['version'] = $matches[0];
 
-        $parent = $element->parentNode->parentNode->parentNode;
         $tr = $parent->getElementsByTagName('tr')[1];
         $span = $parent->getElementsByTagName('span')[5];
 
         foreach ($span->childNodes as $child) {
             $fw['release_date'] = $child->ownerDocument->saveHtml($child);
         }
+
+        preg_match($fw_regex_region, $url, $matches);
+        $fw['region'] = $matches[0];
+
+        preg_match($fw_regex_version, $url, $matches);
+        $fw['version'] = $matches[0];
+
+        $tr = $parent->getElementsByTagName('tr')[0];
+        $span = $parent->getElementsByTagName('span')[1];
+
+        foreach ($span->childNodes as $child) {
+            $fw['description'] .= $child->ownerDocument->saveHtml($child);
+        }
+
 
         array_push($data[$device], $fw);
     }
