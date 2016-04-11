@@ -1,10 +1,4 @@
-$(".scrollTo").click(function() {
-    $('html, body').animate({
-        scrollTop: $(".panel[device=" + $(this).html() + "]").offset().top - 70
-    }, 1000);
-});
-
-
+var deviceMenuTemplate = '<li><a href="javascript:;" class="scrollTo">{ $DEVICE }</a></li>';
 var deviceTemplate = '<div class="panel panel-default" device="{ $DEVICE }"><div class="panel-heading">{ $DEVICE }</div><table class="table"><thead><tr><th>#</th><th>Version</th><th>Region</th><th>Release date</th><th>Changelog</th><th>Download link</th></tr></thead><tbody></tbody></table></div>';
 var firmwareTemplate = '<tr><th scope="row">{ $INDEX }</th><td>{ $VERSION }</td><td>{ $REGION }</td><td>{ $RELEASE_DATE }</td><td><a href="javascript:;" class="showChangelog">Show changelog</a></td><td><a href="{ $URL }">Download</a></td>';
 var changelogs = [];
@@ -12,6 +6,7 @@ var changelogs = [];
 $.getJSON('./api.php', function(data) {
     $.each(data, function(device, firmwares) {
         $(".container").append(deviceTemplate.replace(/{ \$DEVICE }/g, device));
+        $("#devices").append(deviceMenuTemplate.replace(/{ \$DEVICE }/g, device));
         changelogs[device] = [];
 
         $.each(firmwares, function(index, firmware) {
@@ -35,5 +30,11 @@ $.getJSON('./api.php', function(data) {
 
         $("#changelog .modal-body").html(changelogs[deviceName][changelogID]);
         $("#changelog").modal('show');
+    });
+
+    $(".scrollTo").click(function() {
+        $('html, body').animate({
+            scrollTop: $(".panel[device=" + $(this).html() + "]").offset().top - 70
+        }, 1000);
     });
 });
