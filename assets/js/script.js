@@ -1,6 +1,6 @@
 var deviceMenuTemplate = '<li><a href="javascript:;" class="scrollTo">{ $DEVICE }</a></li>';
 var deviceTemplate = '<div class="panel panel-default" device="{ $DEVICE }"><div class="panel-heading">{ $DEVICE }</div><table class="table"><thead><tr><th>#</th><th>Version</th><th>Region</th><th>Release date</th><th>Changelog</th><th>Download link</th></tr></thead><tbody></tbody></table></div>';
-var firmwareTemplate = '<tr><th scope="row">{ $INDEX }</th><td>{ $VERSION }</td><td>{ $REGION }</td><td>{ $RELEASE_DATE }</td><td><a href="javascript:;" class="showChangelog">Show changelog</a></td><td><a href="{ $URL }">Download</a></td>';
+var firmwareTemplate = '<tr><th scope="row">{ $INDEX }</th><td>{ $VERSION }</td><td>{ $REGION }</td><td>{ $RELEASE_DATE }</td><td><a href="javascript:;" device="{ $DEVICE }" changelogID="{ $CHANGELOG_ID }" class="showChangelog">Show changelog</a></td><td><a href="{ $URL }">Download</a></td>';
 var changelogs = [];
 
 $.getJSON('./api.php', function(data) {
@@ -16,6 +16,8 @@ $.getJSON('./api.php', function(data) {
                 firmwareTemplate.replace(/{ \$INDEX }/g, index + 1)
                         .replace(/{ \$VERSION }/g, firmware['version'])
                         .replace(/{ \$RELEASE_DATE }/g, firmware['release_date'])
+                        .replace(/{ \$DEVICE }/g, device)
+                        .replace(/{ \$CHANGELOG_ID }/g, index)
                         .replace(/{ \$REGION }/g, firmware['region'])
                         .replace(/{ \$URL }/g, firmware['url'])
                );
@@ -25,10 +27,10 @@ $.getJSON('./api.php', function(data) {
     $("#spinner").remove();
 
     $(".showChangelog").click(function() {
-        var changelogID = parseInt($(this).parent().parent().children()[0].innerHTML) - 1;
-        var deviceName = $(this).parent().parent().parent().parent().parent().children()[0].innerHTML;
+        var changelogID = parseInt($(this).attr('changelogID'));
+        var device = $(this).attr('device');
 
-        $("#changelog .modal-body").html(changelogs[deviceName][changelogID]);
+        $("#changelog .modal-body").html(changelogs[device][changelogID]);
         $("#changelog").modal('show');
     });
 
