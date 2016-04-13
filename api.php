@@ -19,6 +19,7 @@ $devices = array(
 $fw_xpath = '//*[@id="div_type_20"]//a';
 $fw_regex_region = '(WW|CN|JP|TW|RKT)';
 $fw_regex_version = '(\d+\.\d+\.\d+\.\d+)';
+$seed = rand();
 
 $requests = array();
 $data = array();
@@ -26,7 +27,7 @@ $curl = curl_multi_init();
 $running = false;
 
 foreach ($devices as $device => $url) {
-    $request = curl_init($url);
+    $request = curl_init(sprintf("%s?%d", $url, $seed));
     $requests[$device] = $request;
     $data[$device] = array();
 
