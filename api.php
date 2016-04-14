@@ -19,12 +19,14 @@ $devices = array(
 $fw_xpath = '//*[@id="div_type_20"]//a';
 $fw_regex_region = '(WW|CN|JP|TW|RKT)';
 $fw_regex_version = '(\d+\.\d+\.\d+\.\d+)';
-$seed = rand();
 
 $requests = array();
 $data = array();
 $curl = curl_multi_init();
 $running = false;
+
+$seed = isset($_COOKIE['seed']) ? $_COOKIE['seed'] : rand();
+setcookie("seed", $seed, time() + 3600 * 6);
 
 foreach ($devices as $device => $url) {
     $request = curl_init(sprintf("%s?%d", $url, $seed));
