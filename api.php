@@ -81,7 +81,7 @@ function parseTable($xpath, $query, $device, $arrayElem) {
 }
 
 foreach ($devices as $device => $url) {
-    $request = curl_init(sprintf("%s", $url, $seed));
+    $request = curl_init(sprintf("%s?%d", $url, $seed));
     $requests[$device] = $request;
     $data[$device] = array(
         "firmware" => array(),
