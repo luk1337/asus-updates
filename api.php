@@ -63,20 +63,20 @@ function parseTable($xpath, $query, $device, $arrayElem) {
 
         foreach ($span_2[1]->childNodes as $child) {
             $fw['version'] = trim($child->ownerDocument->saveHtml($child));
+
+            if (preg_match($fw_regex_region, $fw['version'], $matches)) {
+                $fw['version'] = str_replace($matches[0] . "_", "", $fw['version']);
+                $fw['version'] = str_replace($matches[0] . "-", "", $fw['version']);
+                $fw['version'] = str_replace($matches[0], "", $fw['version']);
+            }
+
+            if (substr($fw['version'], 0, 1) == "V") {
+                $fw['version'] = substr($fw['version'], 1);
+            }
         }
 
         if (preg_match($fw_regex_region, $url, $matches) && $arrayElem == 'firmware') {
             $fw['region'] = $matches[0];
-        }
-
-        if (preg_match($fw_regex_region, $fw['version'], $matches)) {
-            $fw['version'] = str_replace($matches[0] . "_", "", $fw['version']);
-            $fw['version'] = str_replace($matches[0] . "-", "", $fw['version']);
-            $fw['version'] = str_replace($matches[0], "", $fw['version']);
-        }
-
-        if (substr($fw['version'], 0, 1) == "V") {
-            $fw['version'] = substr($fw['version'], 1);
         }
 
         array_push($data[$device][$arrayElem], $fw);
