@@ -17,6 +17,14 @@
     margin-top: 70px;
 }
 
+tr.type_source_code {
+    display: none;
+}
+
+.panel button {
+    margin-top: -5px;
+}
+
 @media (min-width: 1024px) {
     .modal-dialog {
         width: 860px;

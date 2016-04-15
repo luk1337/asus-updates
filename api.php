@@ -17,8 +17,9 @@ $devices = array(
 );
 
 $fw_xpath = '//*[@id="div_type_20"]//a';
+$src_xpath = '//*[@id="div_type_30"]//a';
+
 $fw_regex_region = '(WW|CN|JP|TW|RKT)';
-$fw_regex_version = '(\d+\.\d+\.\d+\.\d+)';
 
 $requests = array();
 $data = array();
@@ -28,10 +29,64 @@ $running = false;
 $seed = isset($_COOKIE['seed']) ? $_COOKIE['seed'] : rand();
 setcookie("seed", $seed, time() + 3600 * 6);
 
+function parseTable($xpath, $query, $device, $arrayElem) {
+    global $data, $fw_regex_region;
+
+    foreach ($xpath->query($query) as $element) {
+        $url = $element->getAttribute("href");
+        $parent = $element->parentNode->parentNode->parentNode;
+        $fw = array();
+
+        if (!$url)
+            continue;
+
+        $fw['url'] = $url;
+        $fw['description'] = "";
+        $fw['region'] = "";
+
+        $span = $parent->getElementsByTagName('span')[5];
+
+        foreach ($span->childNodes as $child) {
+            $fw['release_date'] = $child->ownerDocument->saveHtml($child);
+        }
+
+        $span = $parent->getElementsByTagName('span')[1];
+
+        foreach ($span->childNodes as $child) {
+            $fw['description'] .= utf8_decode($child->ownerDocument->saveHtml($child));
+        }
+
+        $span = $parent->parentNode->parentNode->getElementsByTagName('span')[1];
+
+        foreach ($span->childNodes as $child) {
+            $fw['version'] = trim($child->ownerDocument->saveHtml($child));
+        }
+
+        if (preg_match($fw_regex_region, $url, $matches) && $arrayElem == 'firmware') {
+            $fw['region'] = $matches[0];
+        }
+
+        if (preg_match($fw_regex_region, $fw['version'], $matches)) {
+            $fw['version'] = str_replace($matches[0] . "_", "", $fw['version']);
+            $fw['version'] = str_replace($matches[0] . "-", "", $fw['version']);
+            $fw['version'] = str_replace($matches[0], "", $fw['version']);
+        }
+
+        if (substr($fw['version'], 0, 1) == "V") {
+            $fw['version'] = substr($fw['version'], 1);
+        }
+
+        array_push($data[$device][$arrayElem], $fw);
+    }
+}
+
 foreach ($devices as $device => $url) {
-    $request = curl_init(sprintf("%s?%d", $url, $seed));
+    $request = curl_init(sprintf("%s", $url, $seed));
     $requests[$device] = $request;
-    $data[$device] = array();
+    $data[$device] = array(
+        "firmware" => array(),
+        "source_code" => array()
+    );
 
     curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
     curl_multi_add_handle($curl, $requests[$device]);
@@ -48,45 +103,8 @@ foreach ($requests as $device => $request) {
     @$html->loadHTML(curl_multi_getcontent($request));
     $xpath = new DOMXPath($html);
 
-    foreach ($xpath->query($fw_xpath) as $element) {
-        $url = $element->getAttribute("href");
-        $parent = $element->parentNode->parentNode->parentNode;
-        $fw = array();
-
-        if (!$url)
-            continue;
-
-        $fw['url'] = $url;
-
-        preg_match($fw_regex_region, $url, $matches);
-        $fw['region'] = $matches[0];
-
-        preg_match($fw_regex_version, $url, $matches);
-        $fw['version'] = $matches[0];
-
-        $tr = $parent->getElementsByTagName('tr')[1];
-        $span = $parent->getElementsByTagName('span')[5];
-
-        foreach ($span->childNodes as $child) {
-            $fw['release_date'] = $child->ownerDocument->saveHtml($child);
-        }
-
-        preg_match($fw_regex_region, $url, $matches);
-        $fw['region'] = $matches[0];
-
-        preg_match($fw_regex_version, $url, $matches);
-        $fw['version'] = $matches[0];
-
-        $tr = $parent->getElementsByTagName('tr')[0];
-        $span = $parent->getElementsByTagName('span')[1];
-
-        foreach ($span->childNodes as $child) {
-            $fw['description'] .= utf8_decode($child->ownerDocument->saveHtml($child));
-        }
-
-
-        array_push($data[$device], $fw);
-    }
+    parseTable($xpath, $fw_xpath, $device, 'firmware');
+    parseTable($xpath, $src_xpath, $device, 'source_code');
 }
 
 curl_multi_close($curl);
