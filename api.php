@@ -41,9 +41,10 @@ function parseTable($xpath, $query, $device, $arrayElem) {
     global $data, $fw_regex_region;
 
     foreach ($xpath->query($query) as $element) {
-        $url = $element->getAttribute("href");
-        $parent = getParentRecursive($element, 3);
         $fw = array();
+        $url = $element->getAttribute("href");
+        $span_1 = getParentRecursive($element, 3)->getElementsByTagName('span');
+        $span_2 = getParentRecursive($element, 5)->getElementsByTagName('span');
 
         if (!$url)
             continue;
@@ -52,21 +53,15 @@ function parseTable($xpath, $query, $device, $arrayElem) {
         $fw['description'] = "";
         $fw['region'] = "";
 
-        $span = $parent->getElementsByTagName('span')[5];
-
-        foreach ($span->childNodes as $child) {
+        foreach ($span_1[5]->childNodes as $child) {
             $fw['release_date'] = $child->ownerDocument->saveHtml($child);
         }
 
-        $span = $parent->getElementsByTagName('span')[1];
-
-        foreach ($span->childNodes as $child) {
+        foreach ($span_1[1]->childNodes as $child) {
             $fw['description'] .= utf8_decode($child->ownerDocument->saveHtml($child));
         }
 
-        $span = getParentRecursive($element, 5)->getElementsByTagName('span')[1];
-
-        foreach ($span->childNodes as $child) {
+        foreach ($span_2[1]->childNodes as $child) {
             $fw['version'] = trim($child->ownerDocument->saveHtml($child));
         }
 
