@@ -32,9 +32,10 @@ $.getJSON('./api.php', function(data) {
     $("#spinner").remove();
 
     $(".btn-group a").click(function() {
-        var tbody = $(this).parent().parent().parent().parent().parent().children("table").children("tbody");
+        var tbody = $(this).parents(".panel").find("tbody");
+        var button = $(this).parents(".btn-group").children("button");
 
-        $(this).parent().parent().parent().children("button").html($(this).html() + " <span class=\"caret\"></span>");
+        button.html($(this).html() + " <span class=\"caret\"></span>");
         tbody.children("tr").css('display', 'none');
         tbody.children(".type_" + $(this).attr('type')).css('display', 'table-row');
     });
