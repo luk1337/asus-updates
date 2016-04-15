@@ -17,7 +17,7 @@
     margin-top: 70px;
 }
 
-tr.type_source_code {
+tbody > tr:not(.type_firmware) {
     display: none;
 }
 
