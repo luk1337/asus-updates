@@ -29,12 +29,20 @@ $running = false;
 $seed = isset($_COOKIE['seed']) ? $_COOKIE['seed'] : rand();
 setcookie("seed", $seed, time() + 3600 * 6);
 
+function getParentRecursive($node, $depth) {
+    for ($i = 0; $i <= $depth; $i++) {
+        $node = $node->parentNode;
+    }
+
+    return $node;
+}
+
 function parseTable($xpath, $query, $device, $arrayElem) {
     global $data, $fw_regex_region;
 
     foreach ($xpath->query($query) as $element) {
         $url = $element->getAttribute("href");
-        $parent = $element->parentNode->parentNode->parentNode;
+        $parent = getParentRecursive($element, 3);
         $fw = array();
 
         if (!$url)
@@ -56,7 +64,7 @@ function parseTable($xpath, $query, $device, $arrayElem) {
             $fw['description'] .= utf8_decode($child->ownerDocument->saveHtml($child));
         }
 
-        $span = $parent->parentNode->parentNode->getElementsByTagName('span')[1];
+        $span = getParentRecursive($element, 5)->getElementsByTagName('span')[1];
 
         foreach ($span->childNodes as $child) {
             $fw['version'] = trim($child->ownerDocument->saveHtml($child));
