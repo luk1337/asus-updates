@@ -49,7 +49,7 @@ function parseTable($xpath, $query, $device, $arrayElem) {
         $fw = array();
         $url = $element->getAttribute("href");
         $span_1 = getParentRecursive($element, 3)->getElementsByTagName('span');
-        $span_2 = getParentRecursive($element, 5)->getElementsByTagName('span');
+        $span_2 = getParentRecursive($element, 4)->getElementsByTagName('span');
 
         if (!$url)
             continue;
