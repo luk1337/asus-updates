@@ -17,6 +17,14 @@
     margin-top: 70px;
 }
 
+tr:nth-child(1), th:nth-child(1) {
+    width: 5%;
+}
+
+tr, th {
+    width: 23.75%;
+}
+
 tbody > tr:not(.category_firmware) {
     display: none;
 }
