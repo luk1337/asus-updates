@@ -17,7 +17,7 @@
     margin-top: 70px;
 }
 
-tbody > tr:not(.type_firmware) {
+tbody > tr:not(.category_firmware) {
     display: none;
 }
 
