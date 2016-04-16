@@ -1,6 +1,42 @@
-var deviceMenuTemplate = '<li><a href="javascript:;" class="scrollTo">{ $DEVICE }</a></li>';
-var deviceTemplate = '<div class="panel panel-default" device="{ $DEVICE }"><div class="panel-heading">{ $DEVICE }<div class="btn-group pull-right"> <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Firmware <span class="caret"></span> </button> <ul class="dropdown-menu"><li><a href="javascript:;" category="emi_and_safety">EMI and Safety</a></li><li><a href="javascript:;" class="active" category="firmware">Firmware</a></li><li><a href="javascript:;" category="usb">USB</a></li><li><a href="javascript:;" category="source_code">Source Code</a></li><li><a href="javascript:;" category="manual">Manual</a></li></ul></div></div><table class="table"><thead><tr><th>#</th><th>Version</th><th>Release date</th><th>Description</th><th>Download link</th></tr></thead><tbody></tbody></table></div>';
-var firmwareTemplate = '<tr class="category_{ $CATEGORY }"><th scope="row">{ $INDEX }</th><td>{ $VERSION }</td><td>{ $RELEASE_DATE }</td><td><a href="javascript:;" device="{ $DEVICE }" descriptionID="{ $DESCRIPTION_ID }" category="{ $CATEGORY }" class="showDescription">Show description</a></td><td><a href="{ $URL }">Download</a></td>';
+var deviceMenuTemplate = `<li>
+    <a href="javascript:;" class="scrollTo">{ $DEVICE }</a>
+</li>`;
+
+var deviceTemplate = `<div class="panel panel-default" device="{ $DEVICE }">
+    <div class="panel-heading">{ $DEVICE }
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Firmware <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="javascript:;" category="emi_and_safety">EMI and Safety</a></li>
+                <li><a href="javascript:;" class="active" category="firmware">Firmware</a></li>
+                <li><a href="javascript:;" category="usb">USB</a></li>
+                <li><a href="javascript:;" category="source_code">Source Code</a></li>
+                <li><a href="javascript:;" category="manual">Manual</a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Version</th>
+                <th>Release date</th>
+                <th>Description</th>
+                <th>Download link</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>`;
+
+var firmwareTemplate = `<tr class="category_{ $CATEGORY }" device="{ $DEVICE }" descriptionID="{ $DESCRIPTION_ID }" category="{ $CATEGORY }">
+    <th scope="row">{ $INDEX }</th>
+    <td>{ $VERSION }</td>
+    <td>{ $RELEASE_DATE }</td>
+    <td><a href="javascript:;" class="showDescription">Show description</a></td>
+    <td><a href="{ $URL }">Download</a></td>
+</tr>`;
+
 var descriptions = [];
 
 $.getJSON('./api.php', function(data) {
@@ -45,9 +81,10 @@ $.getJSON('./api.php', function(data) {
     });
 
     $(".showDescription").click(function() {
-        var descriptionID = parseInt($(this).attr('descriptionID'));
-        var category = $(this).attr('category');
-        var device = $(this).attr('device');
+        var tr = $(this).parents('tr');
+        var descriptionID = parseInt(tr.attr('descriptionID'));
+        var category = tr.attr('category');
+        var device = tr.attr('device');
 
         $("#description .modal-body").html(descriptions[device][category][descriptionID]);
         $("#description").modal('show');
