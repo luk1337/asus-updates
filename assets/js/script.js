@@ -93,6 +93,10 @@ $.getJSON('./api.php', function(data) {
     });
 
     $(".scrollTo").click(function() {
+        if ($('.navbar-toggle').attr('aria-expanded') == 'true') {
+            $('.navbar-toggle').click();
+        }
+
         $('html, body').animate({
             scrollTop: $(".panel[device=" + $(this).html() + "]").offset().top - 70
         }, 1000);
