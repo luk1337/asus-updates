@@ -16,8 +16,13 @@ $devices = array(
     'ZE601KL' => 'http://www.asus.com/support/Download/39/1/0/25/X3KCz1JmjdVkQtTo/32/'
 );
 
-$fw_xpath = '//*[@id="div_type_20"]//a';
-$src_xpath = '//*[@id="div_type_30"]//a';
+$xpaths = array(
+    'emi_and_safety' => '//*[@id="div_type_38"]//a',
+    'firmware' => '//*[@id="div_type_20"]//a',
+    'usb' => '//*[@id="div_type_22"]//a',
+    'source_code' => '//*[@id="div_type_30"]//a',
+    'manual' => '//*[@id="div_type_12"]//a'
+);
 
 $fw_regex_region = '(WW|CN|JP|TW|RKT)';
 
@@ -84,10 +89,11 @@ function parseTable($xpath, $query, $device, $arrayElem) {
 foreach ($devices as $device => $url) {
     $request = curl_init(sprintf("%s?%d", $url, $seed));
     $requests[$device] = $request;
-    $data[$device] = array(
-        "firmware" => array(),
-        "source_code" => array()
-    );
+    $data[$device] = array();
+
+    foreach ($xpaths as $key => $query) {
+        $data[$device][$key] = array();
+    }
 
     curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
     curl_multi_add_handle($curl, $requests[$device]);
@@ -104,8 +110,9 @@ foreach ($requests as $device => $request) {
     @$html->loadHTML(curl_multi_getcontent($request));
     $xpath = new DOMXPath($html);
 
-    parseTable($xpath, $fw_xpath, $device, 'firmware');
-    parseTable($xpath, $src_xpath, $device, 'source_code');
+    foreach ($xpaths as $key => $query) {
+        parseTable($xpath, $query, $device, $key);
+    }
 }
 
 curl_multi_close($curl);
