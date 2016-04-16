@@ -32,7 +32,7 @@ $curl = curl_multi_init();
 $running = false;
 
 $seed = isset($_COOKIE['seed']) ? $_COOKIE['seed'] : rand();
-setcookie("seed", $seed, time() + 3600 * 6);
+setcookie("seed", $seed, time() + 3600 * 24 * 7);
 
 function getParentRecursive($node, $depth) {
     for ($i = 0; $i <= $depth; $i++) {
