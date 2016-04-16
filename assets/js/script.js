@@ -15,18 +15,20 @@ var deviceTemplate = `<div class="panel panel-default" device="{ $DEVICE }">
             </ul>
         </div>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Version</th>
-                <th>Release date</th>
-                <th>Description</th>
-                <th>Download link</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Version</th>
+                    <th>Release date</th>
+                    <th>Description</th>
+                    <th>Download link</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>`;
 
 var firmwareTemplate = `<tr class="category_{ $CATEGORY }" device="{ $DEVICE }" descriptionID="{ $DESCRIPTION_ID }" category="{ $CATEGORY }">
