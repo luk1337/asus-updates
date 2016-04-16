@@ -42,6 +42,16 @@ tbody > tr:not(.category_firmware) {
     background-color: #428bca !important1;
 }
 
+.navbar-header > i {
+    margin-left: 15px;
+}
+
+@media (min-width: 768px) {
+    .navbar-header > i {
+        margin-left: 0;
+    }
+}
+
 @media (min-width: 1024px) {
     .modal-dialog {
         width: 860px;
