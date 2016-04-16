@@ -24,8 +24,6 @@ $xpaths = array(
     'manual' => '//*[@id="div_type_12"]//a'
 );
 
-$fw_regex_region = '(WW|CN|JP|TW|RKT)';
-
 $requests = array();
 $data = array();
 $curl = curl_multi_init();
@@ -43,7 +41,7 @@ function getParentRecursive($node, $depth) {
 }
 
 function parseTable($xpath, $query, $device, $arrayElem) {
-    global $data, $fw_regex_region;
+    global $data;
 
     foreach ($xpath->query($query) as $element) {
         $fw = array();
@@ -56,7 +54,6 @@ function parseTable($xpath, $query, $device, $arrayElem) {
 
         $fw['url'] = $url;
         $fw['description'] = "";
-        $fw['region'] = "";
 
         $child = $span_1[5]->childNodes->item(0);
         $fw['release_date'] = trim($child->ownerDocument->saveHtml($child));
@@ -66,20 +63,6 @@ function parseTable($xpath, $query, $device, $arrayElem) {
 
         foreach ($span_1[1]->childNodes as $child) {
             $fw['description'] .= utf8_decode($child->ownerDocument->saveHtml($child));
-        }
-
-        if (preg_match($fw_regex_region, $fw['version'], $matches)) {
-            $fw['version'] = str_replace($matches[0] . "_", "", $fw['version']);
-            $fw['version'] = str_replace($matches[0] . "-", "", $fw['version']);
-            $fw['version'] = str_replace($matches[0], "", $fw['version']);
-        }
-
-        if (substr($fw['version'], 0, 1) == "V") {
-            $fw['version'] = substr($fw['version'], 1);
-        }
-
-        if (preg_match($fw_regex_region, $url, $matches) && $arrayElem == 'firmware') {
-            $fw['region'] = $matches[0];
         }
 
         array_push($data[$device][$arrayElem], $fw);
