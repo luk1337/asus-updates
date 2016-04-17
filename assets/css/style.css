@@ -33,15 +33,6 @@ tbody > tr:not(.category_firmware) {
     margin-top: -5px;
 }
 
-.dropdown-menu > li > a.active {
-    background: rgba(0, 0, 0, 0.25);
-}
-
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-    background-color: #428bca !important1;
-}
-
 .navbar-header > i {
     margin-left: 15px;
 }

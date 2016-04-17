@@ -8,7 +8,7 @@ var deviceTemplate = `<div class="panel panel-default" device="{ $DEVICE }">
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Firmware <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="javascript:;" category="emi_and_safety">EMI and Safety</a></li>
-                <li><a href="javascript:;" class="active" category="firmware">Firmware</a></li>
+                <li class="active"><a href="javascript:;" category="firmware">Firmware</a></li>
                 <li><a href="javascript:;" category="usb">USB</a></li>
                 <li><a href="javascript:;" category="utilities">Utilities</a></li>
                 <li><a href="javascript:;" category="source_code">Source Code</a></li>
@@ -83,8 +83,8 @@ $.getJSON('./api.php', function(data) {
         tbody.children("tr").css('display', 'none');
         tbody.children(".category_" + $(this).attr('category')).css('display', 'table-row');
 
-        $(this).parents('.dropdown-menu').find('a').attr('class', '');
-        $(this).attr('class', 'active');
+        $(this).parents('.dropdown-menu').find('li').attr('class', '');
+        $(this).parent().attr('class', 'active');
     });
 
     $(".showDescription").click(function() {
