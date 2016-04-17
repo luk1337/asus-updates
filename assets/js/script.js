@@ -52,6 +52,10 @@ $.getJSON('./api.php', function(data) {
         $.each(categories, function(categoryName, categoryValues) {
             descriptions[device][categoryName] = [];
 
+            if (categoryValues.length == 0) {
+                $(".panel[device=" + device +"] a[category=" + categoryName + "]").remove();
+            }
+
             $.each(categoryValues, function(index, value) {
                 descriptions[device][categoryName][index] = value['description'];
 
