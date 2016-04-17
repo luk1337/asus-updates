@@ -23,7 +23,7 @@ var deviceTemplate = `<div class="panel panel-default" device="{ $DEVICE }">
                     <th>Version</th>
                     <th>Release date</th>
                     <th>Description</th>
-                    <th>Download link</th>
+                    <th>Download</th>
                 </tr>
             </thead>
             <tbody></tbody>
