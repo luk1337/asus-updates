@@ -10,6 +10,7 @@ var deviceTemplate = `<div class="panel panel-default" device="{ $DEVICE }">
                 <li><a href="javascript:;" category="emi_and_safety">EMI and Safety</a></li>
                 <li><a href="javascript:;" class="active" category="firmware">Firmware</a></li>
                 <li><a href="javascript:;" category="usb">USB</a></li>
+                <li><a href="javascript:;" category="utilities">Utilities</a></li>
                 <li><a href="javascript:;" category="source_code">Source Code</a></li>
                 <li><a href="javascript:;" category="manual">Manual</a></li>
             </ul>
