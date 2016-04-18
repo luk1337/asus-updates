@@ -17,12 +17,12 @@ $devices = array(
 );
 
 $xpaths = array(
-    'emi_and_safety' => '//*[@id="div_type_38"]//a',
-    'firmware' => '//*[@id="div_type_20"]//a',
-    'usb' => '//*[@id="div_type_22"]//a',
-    'utilities' => '//*[@id="div_type_14"]//a',
-    'source_code' => '//*[@id="div_type_30"]//a',
-    'manual' => '//*[@id="div_type_12"]//a'
+    'EMI and Safety' => '//*[@id="div_type_38"]//a',
+    'Firmware' => '//*[@id="div_type_20"]//a',
+    'USB' => '//*[@id="div_type_22"]//a',
+    'Utilities' => '//*[@id="div_type_14"]//a',
+    'Source Code' => '//*[@id="div_type_30"]//a',
+    'Manual' => '//*[@id="div_type_12"]//a'
 );
 
 $requests = array();

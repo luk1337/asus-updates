@@ -25,7 +25,7 @@ tr, th {
     width: 23.75%;
 }
 
-tbody > tr:not(.category_firmware) {
+tbody > tr:not([category=Firmware]) {
     display: none;
 }
 

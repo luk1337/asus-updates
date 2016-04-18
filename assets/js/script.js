@@ -6,14 +6,7 @@ var deviceTemplate = `<div class="panel panel-default" device="{ $DEVICE }">
     <div class="panel-heading">{ $DEVICE }
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Firmware <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="javascript:;" category="emi_and_safety">EMI and Safety</a></li>
-                <li class="active"><a href="javascript:;" category="firmware">Firmware</a></li>
-                <li><a href="javascript:;" category="usb">USB</a></li>
-                <li><a href="javascript:;" category="utilities">Utilities</a></li>
-                <li><a href="javascript:;" category="source_code">Source Code</a></li>
-                <li><a href="javascript:;" category="manual">Manual</a></li>
-            </ul>
+            <ul class="dropdown-menu"></ul>
         </div>
     </div>
     <div class="table-responsive">
@@ -52,8 +45,9 @@ $.getJSON('./api.php', function(data) {
         $.each(categories, function(categoryName, categoryValues) {
             descriptions[device][categoryName] = [];
 
-            if (categoryValues.length == 0) {
-                $(".panel[device=" + device +"] a[category=" + categoryName + "]").remove();
+            if (categoryValues.length > 1) {
+                $(".panel[device=" + device +"] .dropdown-menu").append("<li><a href='javascript:;'>" + categoryName +"</a></li>");
+                $(".panel[device=" + device +"] a:contains('Firmware')").parent().attr('class', 'active');
             }
 
             $.each(categoryValues, function(index, value) {
@@ -81,7 +75,7 @@ $.getJSON('./api.php', function(data) {
         button.html($(this).html() + " <span class=\"caret\"></span>");
 
         tbody.children("tr").css('display', 'none');
-        tbody.children(".category_" + $(this).attr('category')).css('display', 'table-row');
+        tbody.children("[category='" + $(this).html() + "']").css('display', 'table-row');
 
         $(this).parents('.dropdown-menu').find('li').attr('class', '');
         $(this).parent().attr('class', 'active');
