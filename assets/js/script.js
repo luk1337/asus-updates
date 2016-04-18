@@ -5,7 +5,7 @@ var deviceMenuTemplate = `<li>
 var deviceTemplate = `<div class="panel panel-default" device="{ $DEVICE }">
     <div class="panel-heading">{ $DEVICE }
         <div class="btn-group pull-right">
-            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Firmware <span class="caret"></span></button>
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
             <ul class="dropdown-menu"></ul>
         </div>
     </div>
@@ -71,8 +71,6 @@ $.getJSON('./api.php', function(data) {
     $(".btn-group a").click(function() {
         var tbody = $(this).parents(".panel").find("tbody");
         var button = $(this).parents(".btn-group").children("button");
-
-        button.html($(this).html() + " <span class=\"caret\"></span>");
 
         tbody.children("tr").css('display', 'none');
         tbody.children("[category='" + $(this).html() + "']").css('display', 'table-row');
