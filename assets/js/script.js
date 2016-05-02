@@ -45,7 +45,7 @@ $.getJSON('./api.php', function(data) {
         $.each(categories, function(categoryName, categoryValues) {
             descriptions[device][categoryName] = [];
 
-            if (categoryValues.length > 1) {
+            if (categoryValues.length > 0) {
                 $(".panel[device=" + device +"] .dropdown-menu").append("<li><a href='javascript:;'>" + categoryName +"</a></li>");
                 $(".panel[device=" + device +"] a:contains('Firmware')").parent().attr('class', 'active');
             }
