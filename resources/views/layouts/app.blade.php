@@ -32,7 +32,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav">
                     @if (Auth::check())
-                        <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                        <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
                     @endif
                 </ul>
 

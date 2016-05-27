@@ -17,4 +17,12 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/dashboard', 'DashboardController@index');
+
+Route::get('/devices/add', 'DevicesController@getAdd');
+Route::post('/devices/add', 'DevicesController@postAdd');
+
+Route::get('/devices/edit/{id}', 'DevicesController@getEdit');
+Route::post('/devices/edit/{id}', 'DevicesController@postEdit');
+
+Route::get('/devices/delete/{id}', 'DevicesController@getDelete');
