@@ -30,11 +30,7 @@
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    @if (Auth::check())
-                        <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-                    @endif
-                </ul>
+                <ul class="nav navbar-nav"></ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
@@ -46,7 +42,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                                <li><a href="{{ url('/logout') }}">Logout</a></li>
                             </ul>
                         </li>
                     @endif
