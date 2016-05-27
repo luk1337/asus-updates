@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Device;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -25,6 +26,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard')->with('devices', Device::all());
+        return view('dashboard')
+            ->with('devices', Device::all())
+            ->with('categories', Category::all());
     }
 }

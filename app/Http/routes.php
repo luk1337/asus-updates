@@ -26,3 +26,11 @@ Route::get('/devices/edit/{id}', 'DevicesController@getEdit');
 Route::post('/devices/edit/{id}', 'DevicesController@postEdit');
 
 Route::get('/devices/delete/{id}', 'DevicesController@getDelete');
+
+Route::get('/categories/add', 'CategoriesController@getAdd');
+Route::post('/categories/add', 'CategoriesController@postAdd');
+
+Route::get('/categories/edit/{id}', 'CategoriesController@getEdit');
+Route::post('/categories/edit/{id}', 'CategoriesController@postEdit');
+
+Route::get('/categories/delete/{id}', 'CategoriesController@getDelete');
