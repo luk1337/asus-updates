@@ -25,7 +25,7 @@
                                             <td>{{ $firmware->category->name }}</td>
                                             <td>{{ $firmware->version }}</td>
                                             <td>{{ $firmware->release_date }}</td>
-                                            <td><a href="#">Description</a></td>
+                                            <td><a href="javascript:showDescription('{{ base64_encode($firmware->description) }}')">Description</a></td>
                                             <td><a href="{{ $firmware->url }}">Download</a></td>
                                         </tr>
                                     @endforeach
