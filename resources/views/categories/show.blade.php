@@ -12,7 +12,6 @@
                         <div class="panel-body table-responsive">
                             <table class="table table-nomargin">
                                 <thead>
-                                    <th>Category</th>
                                     <th>Version</th>
                                     <th>Release date</th>
                                     <th>Description</th>
@@ -22,7 +21,6 @@
                                     @foreach($firmwares->where('device.id', $device->id) as $firmware)
                                         @set('num', $num += 1)
                                         <tr>
-                                            <td>{{ $firmware->category->name }}</td>
                                             <td>{{ $firmware->version }}</td>
                                             <td>{{ $firmware->release_date }}</td>
                                             <td><a href="javascript:showDescription('{{ base64_encode($firmware->description) }}')">Description</a></td>
