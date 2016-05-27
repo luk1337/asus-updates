@@ -9,12 +9,12 @@
                     <a class="btn btn-xs btn-success pull-right" href="{{ url('devices/add') }}">Add device</a>
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body table-responsive">
                     @if(count($devices) == 0)
                         <strong>No devices added, yet!</strong>
                     @else
                         @set('num', 0)
-                        <table class="table table-responsive table-nomargin">
+                        <table class="table table-nomargin">
                             <thead>
                                 <th>#</th>
                                 <th>Device name</th>
@@ -45,12 +45,12 @@
                     <a class="btn btn-xs btn-success pull-right" href="{{ url('categories/add') }}">Add category</a>
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body table-responsive">
                     @if(count($categories) == 0)
                         <strong>No categories added, yet!</strong>
                     @else
                         @set('num', 0)
-                        <table class="table table-responsive table-nomargin">
+                        <table class="table table-nomargin">
                             <thead>
                                 <th>#</th>
                                 <th>Category name</th>

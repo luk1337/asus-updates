@@ -9,8 +9,8 @@
                     @set('num', 0)
                     <div class="panel panel-default">
                         <div class="panel-heading">{{ $device->name }}</div>
-                        <div class="panel-body">
-                            <table class="table table-responsive table-nomargin">
+                        <div class="panel-body table-responsive">
+                            <table class="table table-nomargin">
                                 <thead>
                                     <th>Category</th>
                                     <th>Version</th>

@@ -7,12 +7,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Categories</div>
 
-                <div class="panel-body">
+                <div class="panel-body table-responsive">
                     @if(count($categories) == 0)
                         <strong>No categories added, yet!</strong>
                     @else
                         @set('num', 0)
-                        <table class="table table-responsive table-nomargin">
+                        <table class="table table-nomargin">
                             <thead>
                             <th>#</th>
                             <th>Category name</th>
