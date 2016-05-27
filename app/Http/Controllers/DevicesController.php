@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Console\Commands\UpdateFirmwares;
 use App\Device;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,8 @@ class DevicesController extends Controller
         $device->url = $request['url'];
         $device->save();
 
+        $this->dispatch(new UpdateFirmwares());
+
         return redirect('/dashboard');
     }
 
@@ -58,6 +61,8 @@ class DevicesController extends Controller
         $device->url = $request['url'];
         $device->save();
 
+        $this->dispatch(new UpdateFirmwares());
+
         return redirect('/dashboard');
     }
 
@@ -65,6 +70,8 @@ class DevicesController extends Controller
     {
         $device = Device::findOrFail($id);
         $device->delete();
+
+        $this->dispatch(new UpdateFirmwares());
 
         return redirect('/dashboard');
     }

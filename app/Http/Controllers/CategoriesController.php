@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Console\Commands\UpdateFirmwares;
 use App\Device;
 use App\Firmware;
 use Illuminate\Http\Request;
@@ -47,6 +48,8 @@ class CategoriesController extends Controller
         $category->xpath = $request['xpath'];
         $category->save();
 
+        $this->dispatch(new UpdateFirmwares());
+
         return redirect('/dashboard');
     }
 
@@ -69,6 +72,8 @@ class CategoriesController extends Controller
         $category->xpath = $request['xpath'];
         $category->save();
 
+        $this->dispatch(new UpdateFirmwares());
+
         return redirect('/dashboard');
     }
 
@@ -76,6 +81,8 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
+
+        $this->dispatch(new UpdateFirmwares());
 
         return redirect('/dashboard');
     }
