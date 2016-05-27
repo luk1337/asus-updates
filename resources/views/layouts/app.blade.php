@@ -29,13 +29,17 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav">
                     @foreach(App\Category::all() as $category)
-                        <li><a href="{{ url('categories/show/' . $category->id) }}">{{ $category->name }}</a></li>
+                        <li {{ Request::path() == 'categories/show/' . $category->id ? 'class=active' : null }}>
+                            <a href="{{ url('categories/show/' . $category->id) }}">{{ $category->name }}</a>
+                        </li>
                     @endforeach
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li {{ Request::path() == 'login' ? 'class=active' : null }}>
+                            <a href="{{ url('/login') }}">Login</a>
+                        </li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
