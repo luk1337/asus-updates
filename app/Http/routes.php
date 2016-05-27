@@ -11,8 +11,13 @@
 |
 */
 
+use App\Device;
+use App\Firmware;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')
+        ->with('firmwares', Firmware::all())
+        ->with('devices', Device::all());
 });
 
 Route::auth();
