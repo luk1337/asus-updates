@@ -13,15 +13,19 @@
                     @if(count($devices) == 0)
                         <strong>No devices added, yet!</strong>
                     @else
+                        @set('num', 0)
                         <table class="table table-responsive table-nomargin">
                             <thead>
+                                <th>#</th>
                                 <th>Device name</th>
                                 <th>URL</th>
                                 <th>Actions</th>
                             </thead>
                             <tbody>
                                 @foreach($devices as $device)
+                                    @set('num', $num += 1)
                                     <tr>
+                                        <td>{{ $num }}</td>
                                         <td>{{ $device->name }}</td>
                                         <td><a href="{{ $device->url }}">{{ $device->url }}</a></td>
                                         <td>
@@ -45,15 +49,19 @@
                     @if(count($categories) == 0)
                         <strong>No categories added, yet!</strong>
                     @else
+                        @set('num', 0)
                         <table class="table table-responsive table-nomargin">
                             <thead>
-                            <th>Category name</th>
-                            <th>XPath</th>
-                            <th>Actions</th>
+                                <th>#</th>
+                                <th>Category name</th>
+                                <th>XPath</th>
+                                <th>Actions</th>
                             </thead>
                             <tbody>
                             @foreach($categories as $category)
+                                @set('num', $num += 1)
                                 <tr>
+                                    <td>{{ $num }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->xpath }}</td>
                                     <td>

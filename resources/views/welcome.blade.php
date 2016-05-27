@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             @foreach($devices as $device)
+                @set('num', 0)
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ $device->name }}</div>
                     <div class="panel-body">
@@ -18,6 +19,7 @@
                             </thead>
                             <tbody>
                                 @foreach($firmwares->where('device.id', $device->id) as $firmware)
+                                    @set('num', $num += 1)
                                     <tr>
                                         <td>{{ $firmware->category->name }}</td>
                                         <td>{{ $firmware->version }}</td>
