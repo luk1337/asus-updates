@@ -19,6 +19,9 @@ Route::auth();
 
 Route::get('/dashboard', 'DashboardController@index');
 
+// devices
+Route::get('/devices', 'DevicesController@getList');
+
 Route::get('/devices/add', 'DevicesController@getAdd');
 Route::post('/devices/add', 'DevicesController@postAdd');
 
@@ -26,6 +29,9 @@ Route::get('/devices/edit/{id}', 'DevicesController@getEdit');
 Route::post('/devices/edit/{id}', 'DevicesController@postEdit');
 
 Route::get('/devices/delete/{id}', 'DevicesController@getDelete');
+
+// categories
+Route::get('/categories', 'CategoriesController@getList');
 
 Route::get('/categories/add', 'CategoriesController@getAdd');
 Route::post('/categories/add', 'CategoriesController@postAdd');

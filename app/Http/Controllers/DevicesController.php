@@ -14,6 +14,11 @@ class DevicesController extends Controller
         $this->middleware('auth');
     }
 
+    public function getList()
+    {
+        return view('devices.list')->with('devices', Device::all());
+    }
+
     public function getAdd()
     {
         return view('devices.add');

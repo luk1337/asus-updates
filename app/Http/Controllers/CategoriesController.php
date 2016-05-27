@@ -14,6 +14,11 @@ class CategoriesController extends Controller
         $this->middleware('auth');
     }
 
+    public function getList()
+    {
+        return view('categories.list')->with('categories', Category::all());
+    }
+
     public function getAdd()
     {
         return view('categories.add');
