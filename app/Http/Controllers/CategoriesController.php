@@ -23,8 +23,10 @@ class CategoriesController extends Controller
 
     public function getShow(Request $request, $id)
     {
+        $category = Category::findOrFail($id);
+
         return view('categories.show')
-            ->with('firmwares', Firmware::all()->where('category_id', $id))
+            ->with('firmwares', Firmware::all()->where('category.id', $category->id))
             ->with('devices', Device::all());
     }
 
