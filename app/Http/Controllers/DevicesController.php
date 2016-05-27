@@ -27,7 +27,7 @@ class DevicesController extends Controller
     public function postAdd(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:devices|max:120',
+            'name' => 'required|unique:devices,deleted_at,NULL|max:120',
             'url' => 'required|max:255',
         ]);
 

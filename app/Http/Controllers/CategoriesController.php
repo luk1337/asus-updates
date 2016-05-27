@@ -27,7 +27,7 @@ class CategoriesController extends Controller
     public function postAdd(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:categories|max:120',
+            'name' => 'required|unique:categories,deleted_at,NULL|max:120',
             'xpath' => 'required|max:255',
         ]);
 
