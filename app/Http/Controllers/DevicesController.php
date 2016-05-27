@@ -103,11 +103,15 @@ class DevicesController extends Controller
         ]);
 
         $device = Device::findOrFail($id);
+        $url_changed = $device->url != $request['url'];
+
         $device->name = $request['name'];
         $device->url = $request['url'];
         $device->save();
 
-        $this->dispatch(new UpdateFirmwares());
+        if ($url_changed) {
+            $this->dispatch(new UpdateFirmwares());
+        }
 
         return redirect('/dashboard');
     }

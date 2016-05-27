@@ -114,12 +114,15 @@ class CategoriesController extends Controller
         ]);
 
         $category = Category::findOrFail($id);
+        $xpath_changed = $category->xpath != $request['xpath'];
+
         $category->name = $request['name'];
         $category->xpath = $request['xpath'];
         $category->save();
 
-        $this->dispatch(new UpdateFirmwares());
-
+        if ($xpath_changed) {
+            $this->dispatch(new UpdateFirmwares());
+        }
         return redirect('/dashboard');
     }
 
