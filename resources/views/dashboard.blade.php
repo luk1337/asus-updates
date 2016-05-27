@@ -31,6 +31,8 @@
                                         <td>
                                             <a class="btn btn-xs btn-primary" href="{{ url('devices/edit/' . $device->id ) }}">Edit</a>
                                             <a class="btn btn-xs btn-danger" href="{{ url('devices/delete/' . $device->id ) }}">Delete</a>
+                                            <a class="btn btn-xs btn-default" href="{{ url('devices/move/' . $device->id . '/up') }}"><i class="fa fa-btn fa-arrow-up"></i></a>
+                                            <a class="btn btn-xs btn-default" href="{{ url('devices/move/' . $device->id . '/down') }}"><i class="fa fa-btn fa-arrow-down"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -67,6 +69,8 @@
                                     <td>
                                         <a class="btn btn-xs btn-primary" href="{{ url('categories/edit/' . $category->id ) }}">Edit</a>
                                         <a class="btn btn-xs btn-danger" href="{{ url('categories/delete/' . $category->id ) }}">Delete</a>
+                                        <a class="btn btn-xs btn-default" href="{{ url('categories/move/' . $category->id . '/up') }}"><i class="fa fa-btn fa-arrow-up"></i></a>
+                                        <a class="btn btn-xs btn-default" href="{{ url('categories/move/' . $category->id . '/down') }}"><i class="fa fa-btn fa-arrow-down"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

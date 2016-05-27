@@ -22,6 +22,9 @@ Route::get('/dashboard', 'DashboardController@index');
 // devices
 Route::get('/devices', 'DevicesController@getList');
 
+Route::get('/devices/move/{id}/up', 'DevicesController@getMoveUp');
+Route::get('/devices/move/{id}/down', 'DevicesController@getMoveDown');
+
 Route::get('/devices/add', 'DevicesController@getAdd');
 Route::post('/devices/add', 'DevicesController@postAdd');
 
@@ -32,6 +35,9 @@ Route::get('/devices/delete/{id}', 'DevicesController@getDelete');
 
 // categories
 Route::get('/categories', 'CategoriesController@getList');
+
+Route::get('/categories/move/{id}/up', 'CategoriesController@getMoveUp');
+Route::get('/categories/move/{id}/down', 'CategoriesController@getMoveDown');
 
 Route::get('/categories/show/{id}', 'CategoriesController@getShow');
 

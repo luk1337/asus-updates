@@ -20,6 +20,52 @@ class DevicesController extends Controller
         return view('devices.list')->with('devices', Device::all());
     }
 
+    public function getMoveUp($id) {
+        $device = Device::findOrFail($id);
+        $device_prev = Device::find(Device::where('id', '<', $device->id)->min('id'));
+
+        if ($device_prev != null) {
+            // Cache current devices
+            $device_1 = clone $device;
+            $device_2 = clone $device_prev;
+
+            // Swap name and URL
+            $device_1->name = $device_prev->name;
+            $device_1->url = $device_prev->url;
+            $device_2->name = $device->name;
+            $device_2->url = $device->url;
+
+            // Save both devices
+            $device_1->save();
+            $device_2->save();
+        }
+
+        return redirect('/dashboard');
+    }
+
+    public function getMoveDown($id) {
+        $device = Device::findOrFail($id);
+        $device_next = Device::find(Device::where('id', '>', $device->id)->min('id'));
+
+        if ($device_next != null) {
+            // Cache current devices
+            $device_1 = clone $device;
+            $device_2 = clone $device_next;
+
+            // Swap name and URL
+            $device_1->name = $device_next->name;
+            $device_1->url = $device_next->url;
+            $device_2->name = $device->name;
+            $device_2->url = $device->url;
+
+            // Save both devices
+            $device_1->save();
+            $device_2->save();
+        }
+
+        return redirect('/dashboard');
+    }
+
     public function getAdd()
     {
         return view('devices.add');

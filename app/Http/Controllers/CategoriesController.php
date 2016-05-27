@@ -22,6 +22,52 @@ class CategoriesController extends Controller
         return view('categories.list')->with('categories', Category::all());
     }
 
+    public function getMoveUp($id) {
+        $category = Category::findOrFail($id);
+        $category_prev = Category::find(Category::where('id', '<', $category->id)->min('id'));
+
+        if ($category_prev != null) {
+            // Cache current categories
+            $category_1 = clone $category;
+            $category_2 = clone $category_prev;
+
+            // Swap name and XPath
+            $category_1->name = $category_prev->name;
+            $category_1->xpath = $category_prev->xpath;
+            $category_2->name = $category->name;
+            $category_2->xpath = $category->xpath;
+
+            // Save both categories
+            $category_1->save();
+            $category_2->save();
+        }
+
+        return redirect('/dashboard');
+    }
+
+    public function getMoveDown($id) {
+        $category = Category::findOrFail($id);
+        $category_next = Category::find(Category::where('id', '>', $category->id)->min('id'));
+
+        if ($category_next != null) {
+            // Cache current categories
+            $category_1 = clone $category;
+            $category_2 = clone $category_next;
+
+            // Swap name and XPath
+            $category_1->name = $category_next->name;
+            $category_1->xpath = $category_next->xpath;
+            $category_2->name = $category->name;
+            $category_2->xpath = $category->xpath;
+
+            // Save both categories
+            $category_1->save();
+            $category_2->save();
+        }
+
+        return redirect('/dashboard');
+    }
+
     public function getShow(Request $request, $id)
     {
         $category = Category::findOrFail($id);
