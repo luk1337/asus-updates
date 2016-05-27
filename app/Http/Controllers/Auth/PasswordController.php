@@ -29,4 +29,14 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function showResetForm()
+    {
+        return redirect('/');
+    }
+
+    public function reset()
+    {
+
+    }
 }
