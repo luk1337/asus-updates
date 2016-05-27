@@ -32,7 +32,7 @@ class PasswordController extends Controller
 
     public function showResetForm()
     {
-        return redirect('/');
+        abort('404');
     }
 
     public function reset()
