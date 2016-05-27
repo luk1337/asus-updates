@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c284a9c122da36c99a8b6597bdce7aa6",
-    "content-hash": "8b1485987e7c5949da82435d403e52e8",
+    "hash": "0e61ba5ffcf64ce567d5cce47894df69",
+    "content-hash": "6283cc641a5f13ff4377277cda6b0af2",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -895,6 +895,50 @@
                 "shell"
             ],
             "time": "2016-03-09 05:03:14"
+        },
+        {
+            "name": "sineld/bladeset",
+            "version": "5.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sineld/bladeset.git",
+                "reference": "e85180092c5cc174e57135a67ee7ec0777ad92a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sineld/bladeset/zipball/e85180092c5cc174e57135a67ee7ec0777ad92a8",
+                "reference": "e85180092c5cc174e57135a67ee7ec0777ad92a8",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.2.*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sinan Eldem",
+                    "email": "sineld@gmail.com"
+                }
+            ],
+            "description": "A very simple blade extension which allows variables to be set within blade templates.",
+            "homepage": "https://github.com/sineld/bladeset",
+            "keywords": [
+                "blade",
+                "bladeset",
+                "laravel",
+                "template"
+            ],
+            "time": "2016-03-30 12:31:01"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3006,7 +3050,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "sineld/bladeset": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
