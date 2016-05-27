@@ -21,19 +21,19 @@
                     <form class="form-horizontal" method="post">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">Device name</label>
-                            <div class="col-sm-10">
+                            <label for="name" class="col-sm-3 control-label">Device name</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="ZE551KL" value="{{ $device->name }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="xpath" class="col-sm-2 control-label">URL</label>
-                            <div class="col-sm-10">
+                            <label for="xpath" class="col-sm-3 control-label">URL</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control" id="url" name="url" placeholder="http://www.asus.com/support/Download/39/1/0/23/SZCx58yhB5Jst0yI/8/" value="{{ $device->url }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
+                            <div class="col-sm-offset-3 col-sm-9">
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
