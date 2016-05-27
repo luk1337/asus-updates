@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Device;
 use App\Http\Requests;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {

@@ -25,12 +25,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
-                <a class="navbar-brand" href="{{ url('/') }}">asus-updates</a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <ul class="nav navbar-nav"></ul>
+                <ul class="nav navbar-nav">
+                    @foreach(App\Category::all() as $category)
+                        <li><a href="{{ url('categories/show/' . $category->id) }}">{{ $category->name }}</a></li>
+                    @endforeach
+                </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())

@@ -11,13 +11,8 @@
 |
 */
 
-use App\Device;
-use App\Firmware;
-
 Route::get('/', function () {
-    return view('welcome')
-        ->with('firmwares', Firmware::all())
-        ->with('devices', Device::all());
+    return view('welcome');
 });
 
 Route::auth();
@@ -37,6 +32,8 @@ Route::get('/devices/delete/{id}', 'DevicesController@getDelete');
 
 // categories
 Route::get('/categories', 'CategoriesController@getList');
+
+Route::get('/categories/show/{id}', 'CategoriesController@getShow');
 
 Route::get('/categories/add', 'CategoriesController@getAdd');
 Route::post('/categories/add', 'CategoriesController@postAdd');

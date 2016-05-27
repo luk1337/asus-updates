@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Device;
+use App\Firmware;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,12 +13,19 @@ class CategoriesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'getShow']);
     }
 
     public function getList()
     {
         return view('categories.list')->with('categories', Category::all());
+    }
+
+    public function getShow(Request $request, $id)
+    {
+        return view('categories.show')
+            ->with('firmwares', Firmware::all()->where('category_id', $id))
+            ->with('devices', Device::all());
     }
 
     public function getAdd()
