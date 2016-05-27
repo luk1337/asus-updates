@@ -37,6 +37,6 @@
             @endforeach
         </div>
     </div>
-    <div class="pull-right">Last update: {{ Cache::get('last_update') }} ( GMT+2 )</div>
+    <div class="pull-right last_update">Last update: {{ Cache::get('last_update') }} ( GMT+2 )</div>
 </div>
 @endsection
