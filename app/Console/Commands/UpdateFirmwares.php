@@ -8,6 +8,7 @@ use App\Firmware;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 
 class UpdateFirmwares extends Command
 {
@@ -79,6 +80,8 @@ class UpdateFirmwares extends Command
                 }
             }
         }
+
+        Cache::forever('last_update', date('Y-m-d H:i:s'));
     }
 
 
