@@ -6,6 +6,7 @@ use App\Category;
 use App\Console\Commands\UpdateFirmwares;
 use App\Device;
 use App\Firmware;
+use App\Helper;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,22 +25,10 @@ class CategoriesController extends Controller
 
     public function getMoveUp($id) {
         $category = Category::findOrFail($id);
-        $category_prev = Category::find(Category::where('id', '<', $category->id)->min('id'));
+        $category_prev = Category::find(Category::where('id', '<', $category->id)->max('id'));
 
         if ($category_prev != null) {
-            // Cache current categories
-            $category_1 = clone $category;
-            $category_2 = clone $category_prev;
-
-            // Swap name and XPath
-            $category_1->name = $category_prev->name;
-            $category_1->xpath = $category_prev->xpath;
-            $category_2->name = $category->name;
-            $category_2->xpath = $category->xpath;
-
-            // Save both categories
-            $category_1->save();
-            $category_2->save();
+            Helper::swapData($category, $category_prev, ['name', 'xpath']);
         }
 
         return redirect('/dashboard');
@@ -50,19 +39,7 @@ class CategoriesController extends Controller
         $category_next = Category::find(Category::where('id', '>', $category->id)->min('id'));
 
         if ($category_next != null) {
-            // Cache current categories
-            $category_1 = clone $category;
-            $category_2 = clone $category_next;
-
-            // Swap name and XPath
-            $category_1->name = $category_next->name;
-            $category_1->xpath = $category_next->xpath;
-            $category_2->name = $category->name;
-            $category_2->xpath = $category->xpath;
-
-            // Save both categories
-            $category_1->save();
-            $category_2->save();
+            Helper::swapData($category, $category_next, ['name', 'xpath']);
         }
 
         return redirect('/dashboard');

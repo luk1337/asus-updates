@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Console\Commands\UpdateFirmwares;
 use App\Device;
+use App\Helper;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,22 +23,10 @@ class DevicesController extends Controller
 
     public function getMoveUp($id) {
         $device = Device::findOrFail($id);
-        $device_prev = Device::find(Device::where('id', '<', $device->id)->min('id'));
+        $device_prev = Device::find(Device::where('id', '<', $device->id)->max('id'));
 
         if ($device_prev != null) {
-            // Cache current devices
-            $device_1 = clone $device;
-            $device_2 = clone $device_prev;
-
-            // Swap name and URL
-            $device_1->name = $device_prev->name;
-            $device_1->url = $device_prev->url;
-            $device_2->name = $device->name;
-            $device_2->url = $device->url;
-
-            // Save both devices
-            $device_1->save();
-            $device_2->save();
+            Helper::swapData($device, $device_prev, ['name', 'url']);
         }
 
         return redirect('/dashboard');
@@ -48,19 +37,7 @@ class DevicesController extends Controller
         $device_next = Device::find(Device::where('id', '>', $device->id)->min('id'));
 
         if ($device_next != null) {
-            // Cache current devices
-            $device_1 = clone $device;
-            $device_2 = clone $device_next;
-
-            // Swap name and URL
-            $device_1->name = $device_next->name;
-            $device_1->url = $device_next->url;
-            $device_2->name = $device->name;
-            $device_2->url = $device->url;
-
-            // Save both devices
-            $device_1->save();
-            $device_2->save();
+            Helper::swapData($device, $device_next, ['name', 'url']);
         }
 
         return redirect('/dashboard');
