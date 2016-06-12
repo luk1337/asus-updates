@@ -62,7 +62,9 @@ class DevicesController extends Controller
 
         $this->dispatch(new UpdateFirmwares());
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')
+            ->with('status', 'success')
+            ->with('message', 'Device added!');
     }
 
     public function getEdit(Request $request, $id)
@@ -90,7 +92,9 @@ class DevicesController extends Controller
             $this->dispatch(new UpdateFirmwares());
         }
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')
+            ->with('status', 'success')
+            ->with('message', 'Device edited!');
     }
 
     public function getDelete(Request $request, $id)
@@ -100,6 +104,8 @@ class DevicesController extends Controller
 
         $this->dispatch(new UpdateFirmwares());
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')
+            ->with('status', 'success')
+            ->with('message', 'Device deleted!');
     }
 }

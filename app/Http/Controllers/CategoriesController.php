@@ -73,7 +73,9 @@ class CategoriesController extends Controller
 
         $this->dispatch(new UpdateFirmwares());
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')
+            ->with('status', 'success')
+            ->with('message', 'Category added!');
     }
 
     public function getEdit(Request $request, $id)
@@ -100,7 +102,9 @@ class CategoriesController extends Controller
         if ($xpath_changed) {
             $this->dispatch(new UpdateFirmwares());
         }
-        return redirect('/dashboard');
+        return redirect('/dashboard')
+            ->with('status', 'success')
+            ->with('message', 'Category edited!');
     }
 
     public function getDelete(Request $request, $id)
@@ -110,6 +114,8 @@ class CategoriesController extends Controller
 
         $this->dispatch(new UpdateFirmwares());
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')
+            ->with('status', 'success')
+            ->with('message', 'Category deleted!');
     }
 }
