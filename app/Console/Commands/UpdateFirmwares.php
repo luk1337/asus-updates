@@ -24,7 +24,7 @@ class UpdateFirmwares extends Command
      *
      * @var string
      */
-    protected $description = 'Grabs latest set of asus firmwares off their website';
+    protected $description = 'Grab latest set of ASUS firmwares off their website';
 
     /**
      * Create a new command instance.
