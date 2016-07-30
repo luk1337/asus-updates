@@ -8,28 +8,31 @@
                 <div class="panel-heading">Add category</div>
 
                 <div class="panel-body">
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
                     <form class="form-horizontal" method="post">
                         {{ csrf_field() }}
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-sm-3 control-label">Category name</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="EMI and Safety">
+
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('xpath') ? ' has-error' : '' }}">
                             <label for="xpath" class="col-sm-3 control-label">XPath</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="xpath" name="xpath" placeholder='//*[@id="div_type_38\"]//a'>
+
+                                @if ($errors->has('xpath'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('xpath') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group">

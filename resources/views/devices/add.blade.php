@@ -8,28 +8,31 @@
                 <div class="panel-heading">Add device</div>
 
                 <div class="panel-body">
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
                     <form class="form-horizontal" method="post">
                         {{ csrf_field() }}
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-sm-3 control-label">Device name</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="ZE551KL">
+
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('url') ? ' has-error' : '' }}">
                             <label for="xpath" class="col-sm-3 control-label">URL</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="url" name="url" placeholder="http://www.asus.com/support/Download/39/1/0/23/SZCx58yhB5Jst0yI/8/">
+
+                                @if ($errors->has('url'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('url') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group">
