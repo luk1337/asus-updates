@@ -14,7 +14,7 @@
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-sm-3 control-label">Category name</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="EMI and Safety" value="{{ old('name') ? old('name') : $category->name }}">
+                                <input type="text" class="form-control" id="name" name="name" maxlength="120"  placeholder="EMI and Safety" value="{{ old('name') ? old('name') : $category->name }}">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -26,7 +26,7 @@
                         <div class="form-group{{ $errors->has('xpath') ? ' has-error' : '' }}">
                             <label for="xpath" class="col-sm-3 control-label">XPath</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="xpath" name="xpath" placeholder='//*[@id="div_type_38\"]//a' value="{{ old('xpath') ? old('xpath') : $category->xpath }}">
+                                <input type="text" class="form-control" id="xpath" name="xpath" maxlength="255" placeholder='//*[@id="div_type_38\"]//a' value="{{ old('xpath') ? old('xpath') : $category->xpath }}">
 
                                 @if ($errors->has('xpath'))
                                     <span class="help-block">

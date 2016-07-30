@@ -14,7 +14,7 @@
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-sm-3 control-label">Device name</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="ZE551KL" value="{{ old('name') }}">
+                                <input type="text" class="form-control" id="name" name="name" maxlength="120" placeholder="ZE551KL" value="{{ old('name') }}">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -26,7 +26,7 @@
                         <div class="form-group{{ $errors->has('url') ? ' has-error' : '' }}">
                             <label for="xpath" class="col-sm-3 control-label">URL</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="url" name="url" placeholder="http://www.asus.com/support/Download/39/1/0/23/SZCx58yhB5Jst0yI/8/" value="{{ old('url') }}">
+                                <input type="text" class="form-control" id="url" name="url" maxlength="255"  placeholder="http://www.asus.com/support/Download/39/1/0/23/SZCx58yhB5Jst0yI/8/" value="{{ old('url') }}">
 
                                 @if ($errors->has('url'))
                                     <span class="help-block">
