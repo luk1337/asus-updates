@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav">
                     @foreach(App\Category::all() as $category)
-                        <li{{ Request::path() == 'categories/show/' . $category->id ? ' class=active' : '' }}>
+                        <li class="@setActiveLink('categories/show/' . $category->id)">
                             <a href="{{ url('categories/show/' . $category->id) }}">{{ $category->name }}</a>
                         </li>
                     @endforeach
@@ -37,7 +37,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
-                        <li{{ Request::path() == 'login' ? ' class=active' :'' }}>
+                        <li class="@setActiveLink('login')">
                             <a href="{{ url('/login') }}">Login</a>
                         </li>
                     @else
@@ -47,7 +47,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li{{ Request::path() == ' dashboard' ? ' class=active' : '' }}>
+                                <li class="@setActiveLink('dashboard')">
                                     <a href="{{ url('/dashboard') }}">Dashboard</a>
                                 </li>
                                 <li><a href="{{ url('/logout') }}">Logout</a></li>
