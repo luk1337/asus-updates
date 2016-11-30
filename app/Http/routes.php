@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 // auth
-Route::get('login', 'Auth\AuthController@showLoginForm');
-Route::post('login', 'Auth\AuthController@login');
-Route::get('logout', 'Auth\AuthController@logout');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/dashboard', 'DashboardController@index');
 
