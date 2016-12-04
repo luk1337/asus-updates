@@ -63,6 +63,7 @@ class UpdateFirmwares extends Command
 
             curl_setopt($curl, CURLOPT_URL, sprintf("%s?%d", $device->url, rand()));
             curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
             @$html->loadHTML(curl_exec($curl));
             $dom = new DOMXPath($html);
