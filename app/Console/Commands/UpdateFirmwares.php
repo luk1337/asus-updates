@@ -52,10 +52,17 @@ class UpdateFirmwares extends Command
             $curl = curl_init();
             $html = new DOMDocument;
 
+            $headers = [
+                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Encoding: deflate, sdch',
+                'Accept-Language: en-US,en;q=0.8,pl;q=0.6',
+                'Cache-Control: max-age=0',
+                'Connection: keep-alive',
+                'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36'
+            ];
+
             curl_setopt($curl, CURLOPT_URL, sprintf("%s?%d", $device->url, rand()));
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($curl, CURLOPT_HEADER, 0);
-            curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.100 Safari/537.36');
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
             @$html->loadHTML(curl_exec($curl));
             $dom = new DOMXPath($html);
