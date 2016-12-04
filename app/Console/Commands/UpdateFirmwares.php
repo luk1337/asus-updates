@@ -54,7 +54,7 @@ class UpdateFirmwares extends Command
 
             $headers = [
                 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Accept-Encoding: deflate, sdch',
+                'Accept-Encoding: gzip, deflate, sdch',
                 'Accept-Language: en-US,en;q=0.8,pl;q=0.6',
                 'Cache-Control: max-age=0',
                 'Connection: keep-alive',
@@ -63,6 +63,7 @@ class UpdateFirmwares extends Command
 
             curl_setopt($curl, CURLOPT_URL, sprintf("%s?%d", $device->url, rand()));
             curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($curl, CURLOPT_ENCODING, "gzip");
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
             @$html->loadHTML(curl_exec($curl));
