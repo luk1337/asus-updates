@@ -159,6 +159,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Laravel\Tinker\TinkerServiceProvider::class,
         Sineld\BladeSet\BladeSetServiceProvider::class,
     ],
 
