@@ -121,7 +121,7 @@ class UpdateFirmwares extends Command
             $child = $span_1[5]->childNodes->item(0);
             $firmware['release_date'] = trim($child->ownerDocument->saveHtml($child));
 
-            $child = $span_2[1]->childNodes->item(0);
+            $child = $span_2[2]->childNodes->item(0);
             $firmware['version'] = trim($child->ownerDocument->saveHtml($child));
 
             foreach ($span_1[1]->childNodes as $child) {
