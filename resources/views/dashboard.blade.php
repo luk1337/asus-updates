@@ -32,7 +32,7 @@
                                     <tr>
                                         <td>{{ $num }}</td>
                                         <td>{{ $device->name }}</td>
-                                        <td><a href="{{ $device->url }}">{{ $device->url }}</a></td>
+                                        <td><a href="{{ $device->url }}">{{ \str_limit($device->url, $limit = 60, $end = '...') }}</a></td>
                                         <td>
                                             <a class="btn btn-xs btn-primary" href="{{ url('devices/edit/' . $device->id ) }}">Edit</a>
                                             <a class="btn btn-xs btn-danger" href="{{ url('devices/delete/' . $device->id ) }}">Delete</a>
