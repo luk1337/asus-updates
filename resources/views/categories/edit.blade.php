@@ -23,18 +23,6 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('xpath') ? ' has-error' : '' }}">
-                            <label for="xpath" class="col-sm-3 control-label">XPath</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="xpath" name="xpath" maxlength="255" placeholder='//*[@id="div_type_38\"]//a' value="{{ old('xpath') ? old('xpath') : $category->xpath }}">
-
-                                @if ($errors->has('xpath'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('xpath') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-9">
                                 <button type="submit" class="btn btn-primary">Add category</button>

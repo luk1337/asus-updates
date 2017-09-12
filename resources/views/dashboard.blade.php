@@ -61,7 +61,6 @@
                             <thead>
                                 <th>#</th>
                                 <th>Category name</th>
-                                <th>XPath</th>
                                 <th>Actions</th>
                             </thead>
                             <tbody>
@@ -70,7 +69,6 @@
                                 <tr>
                                     <td>{{ $num }}</td>
                                     <td>{{ $category->name }}</td>
-                                    <td>{{ $category->xpath }}</td>
                                     <td>
                                         <a class="btn btn-xs btn-primary" href="{{ url('categories/edit/' . $category->id ) }}">Edit</a>
                                         <a class="btn btn-xs btn-danger" href="{{ url('categories/delete/' . $category->id ) }}">Delete</a>

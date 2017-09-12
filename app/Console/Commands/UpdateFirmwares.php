@@ -50,10 +50,9 @@ class UpdateFirmwares extends Command
 
         foreach ($devices as $device) {
             $curl = curl_init();
-            $html = new DOMDocument;
 
             $headers = [
-                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
                 'Accept-Encoding: gzip, deflate, sdch',
                 'Accept-Language: en-US,en;q=0.8,pl;q=0.6',
                 'Cache-Control: max-age=0',
@@ -66,25 +65,25 @@ class UpdateFirmwares extends Command
             curl_setopt($curl, CURLOPT_ENCODING, "gzip");
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-            @$html->loadHTML(curl_exec($curl));
-            $dom = new DOMXPath($html);
-
+            $content = curl_exec($curl);
+            $text = substr($content, 16, strlen($content) - 17);
+            @$json = json_decode($text, true);
             curl_close($curl);
 
-            foreach ($categories as $category) {
-                $table = $this->parseTable($dom, $category->xpath);
+            foreach ($json["Result"]["Obj"] as $category) {
+                if (!$categories->contains("name", $category["Name"])) {
+                    continue;
+                }
 
-                if ($table == null) continue;
-
-                foreach ($table as $fw) {
+                foreach ($category["Files"] as $file) {
                     $firmware = new Firmware;
 
-                    $firmware->url = $fw['url'];
-                    $firmware->description = $fw['description'];
-                    $firmware->release_date = $fw['release_date'];
-                    $firmware->version = $fw['version'];
+                    $firmware->url = $file["DownloadUrl"]["Global"] ?: $file["DownloadUrl"]["China"];
+                    $firmware->description = $file["Description"];
+                    $firmware->release_date = $file["ReleaseDate"];
+                    $firmware->version = $file["Version"];
                     $firmware->device()->associate($device);
-                    $firmware->category()->associate($category);
+                    $firmware->category()->associate($categories->where("name", $category["Name"])->first());
 
                     $firmware->save();
                 }
@@ -92,45 +91,5 @@ class UpdateFirmwares extends Command
         }
 
         Cache::forever('last_update', date('Y-m-d H:i:s'));
-    }
-
-
-    private function getParentRecursive($node, $depth) {
-        for ($i = 0; $i <= $depth; $i++) {
-            $node = $node->parentNode;
-        }
-
-        return $node;
-    }
-
-    private function parseTable($dom, $xpath) {
-        $firmwares = array();
-
-        foreach ($dom->query($xpath) as $element) {
-            $firmware = array();
-            $url = $element->getAttribute("href");
-            $span_1 = $this->getParentRecursive($element, 3)->getElementsByTagName('span');
-            $span_2 = $this->getParentRecursive($element, 4)->getElementsByTagName('span');
-
-            if (!$url)
-                continue;
-
-            $firmware['url'] = $url;
-            $firmware['description'] = "";
-
-            $child = $span_1[5]->childNodes->item(0);
-            $firmware['release_date'] = trim($child->ownerDocument->saveHtml($child));
-
-            $child = $span_2[2]->childNodes->item(0);
-            $firmware['version'] = trim($child->ownerDocument->saveHtml($child));
-
-            foreach ($span_1[1]->childNodes as $child) {
-                $firmware['description'] .= utf8_decode($child->ownerDocument->saveHtml($child));
-            }
-
-            array_push($firmwares, $firmware);
-        }
-
-        return $firmwares;
     }
 }

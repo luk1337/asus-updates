@@ -28,7 +28,7 @@ class CategoriesController extends Controller
         $category_prev = Category::find(Category::where('id', '<', $category->id)->max('id'));
 
         if ($category_prev != null) {
-            Helper::swapData($category, $category_prev, ['name', 'xpath']);
+            Helper::swapData($category, $category_prev, ['name']);
         }
 
         return redirect('/dashboard');
@@ -39,7 +39,7 @@ class CategoriesController extends Controller
         $category_next = Category::find(Category::where('id', '>', $category->id)->min('id'));
 
         if ($category_next != null) {
-            Helper::swapData($category, $category_next, ['name', 'xpath']);
+            Helper::swapData($category, $category_next, ['name']);
         }
 
         return redirect('/dashboard');
@@ -63,12 +63,10 @@ class CategoriesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:categories,deleted_at,NULL|max:120',
-            'xpath' => 'required|max:255',
         ]);
 
         $category = new Category;
         $category->name = $request['name'];
-        $category->xpath = $request['xpath'];
         $category->save();
 
         $this->dispatch(new UpdateFirmwares());
@@ -89,19 +87,18 @@ class CategoriesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:120',
-            'xpath' => 'required|max:255',
         ]);
 
         $category = Category::findOrFail($id);
-        $xpath_changed = $category->xpath != $request['xpath'];
+        $name_changed = $category->name != $request['name'];
 
         $category->name = $request['name'];
-        $category->xpath = $request['xpath'];
         $category->save();
 
-        if ($xpath_changed) {
+        if ($name_changed) {
             $this->dispatch(new UpdateFirmwares());
         }
+
         return redirect('/dashboard')
             ->with('status', 'success')
             ->with('message', 'Category edited!');
