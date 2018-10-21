@@ -66,7 +66,8 @@ class UpdateFirmwares extends Command
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
             $content = curl_exec($curl);
-            $text = substr($content, 16, strlen($content) - 17);
+            $text = strstr($content, "{");
+            $text = substr($text, 0, strlen($text) - 1);
             @$json = json_decode($text, true);
             curl_close($curl);
 
